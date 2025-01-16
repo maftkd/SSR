@@ -52,7 +52,7 @@ Shader "Hidden/FinalComposite"
                 float4 albedo = tex2D(_GAlbedo, i.uv);
                 col = albedo.rgb;
                 float3 reflection = tex2D(_ReflectionTexture, i.uv).rgb;
-                col = lerp(col, reflection.rgb, albedo.a);
+                col = lerp(col, tex2D(_GAlbedo, reflection.xy), albedo.a * reflection.z);
                 float ssao = tex2D(_AmbientOcclusion, i.uv).r;
                 col *= ssao;
                 return float4(col, 1);

@@ -2320,8 +2320,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 4054c86f25afa46be8090223bdd1322e, type: 3}
   maxDistance: 16
-  thickness: 2
-  noise: 0.01
+  thickness: 0.5
+  noise: 0
 --- !u!4 &1976851217
 Transform:
   m_ObjectHideFlags: 0
