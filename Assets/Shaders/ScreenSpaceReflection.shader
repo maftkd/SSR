@@ -75,16 +75,9 @@ Shader "Hidden/ScreenSpaceReflection"
                      return 0;
                 }
 
-                //uint2 pixCoords = i.uv * _ScreenParams.xy;
-                //uint pixIndex = pixCoords.y * _ScreenParams.x + pixCoords.x;
-                //uint rngState = pixIndex;// + _AccumulationFrames * 719393;
-
                 float4 positionFrom = tex2D(_GPosition, i.uv);
                 float3 normal = normalize(tex2D(_GNormal, i.uv).xyz);
-                //positionFrom.xyz += normal * (random(rngState) - 0.5) * _Noise * 100;
-                //return positionFrom * 0.1;
                 float3 unitPositionFrom = normalize(positionFrom.xyz);
-                //return float4(abs(normal), 1);
                 float3 reflectedRay = normalize(reflect(unitPositionFrom, normal));
 
                 float4 startView = float4(positionFrom.xyz + reflectedRay * 0.0, 1);
@@ -92,10 +85,8 @@ Shader "Hidden/ScreenSpaceReflection"
 
                 float2 startFrag = i.uv;
                 float2 endFrag = viewSpacePosToUvCoords(endView.xyz);
-                //return tex2D(_GAlbedo, endFrag);
 
-                float search0 = 0;
-                float search1 = 0;
+                float search01 = 0;
 
                 float hit0 = 0;
 
@@ -104,13 +95,13 @@ Shader "Hidden/ScreenSpaceReflection"
                 float2 curCoords = startFrag;
                 float4 positionTo = 0;
                 float depthDifference = 0;
-                float steps = 128;
+                float steps = 64;
                 float2 texel = 1/_ScreenParams.xy;
                 for(float t = 1; t <= steps; t++)
                 {
-                    search1 = t / steps;
-                    search1 *= search1;
-                    float2 newCoords = lerp(startFrag, endFrag, search1);
+                    search01 = t / steps;
+                    //search1 *= search1;
+                    float2 newCoords = lerp(startFrag, endFrag, search01);
                     float2 diff = newCoords - curCoords;
                     if(abs(diff.x) < texel.x * 2 && abs(diff.y) < texel.y * 2)
                     {
@@ -121,8 +112,7 @@ Shader "Hidden/ScreenSpaceReflection"
                     positionTo = tex2D(_GPosition, curCoords);
 
                     //perspective-correct interpolation
-                    viewDistance = (startView.z * endView.z) / lerp(endView.z, startView.z, search1);
-                    //viewDistance = lerp(startView.z, endView.z, search1);
+                    viewDistance = (startView.z * endView.z) / lerp(endView.z, startView.z, search01);
 
                     depthDifference = viewDistance - positionTo.z;
 
@@ -132,19 +122,6 @@ Shader "Hidden/ScreenSpaceReflection"
                         break;
                     }
                 }
-                //return hit0;
-                //return float4(curCoords, 0, 1);
-                /*
-                if(positionFrom.x < 0.5)
-                {
-                    return float4(curCoords * hit0, 0, 1);
-                }
-                else
-                {
-                    return float4(i.uv, 0, 1);
-                }
-                */
-                //return tex2D(_GAlbedo, curCoords.xy);
 
                 float2 diffFromCenter = float2(0.5,0.5) - curCoords.xy;
                 float distFromCenter = length(diffFromCenter);
