@@ -1,4 +1,4 @@
-Shader "Hidden/FinalComposite"
+Shader "Hidden/ScreenSpaceReflection"
 {
     Properties
     {
@@ -16,7 +16,6 @@ Shader "Hidden/FinalComposite"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-            #include "AutoLight.cginc"
 
             struct appdata
             {
@@ -41,22 +40,18 @@ Shader "Hidden/FinalComposite"
             sampler2D _GAlbedo;
             sampler2D _GNormal;
             sampler2D _GPosition;
-            
-            sampler2D _AmbientOcclusion;
-            sampler2D _ReflectionTexture;
-            float4x4 _ViewMatrix;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float3 col = 0;
-                float4 albedo = tex2D(_GAlbedo, i.uv);
-                col = albedo.rgb;
-                float3 reflection = tex2D(_ReflectionTexture, i.uv).rgb;
-                col = lerp(col, reflection.rgb, albedo.a);
-                float ssao = tex2D(_AmbientOcclusion, i.uv).r;
-                col *= ssao;
-                return float4(col, 1);
-                return ssao;
+                fixed4 albedo = tex2D(_GAlbedo, i.uv);
+                if(albedo.a < 0.5)
+                {
+                     return 0;
+                }
+
+                albedo.rgb = 1 - albedo.rgb;
+                
+                return albedo;
             }
             ENDCG
         }

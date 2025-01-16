@@ -66,10 +66,6 @@ Shader "Unlit/DeferredReplacement"
                 fragmentOutput o;
                 float receivedShadow = 1 - UNITY_SHADOW_ATTENUATION(i, i.worldPos);
                 //receivedShadow *= 0.2;
-                if(i.worldPos.y < 0.01)
-                {
-                    //_Color = float4(1, 0, 0, 1);
-                }
                 
                 float3 lightPos = _WorldSpaceLightPos0.xyz;
                 lightPos = mul(_ViewMatrix, float4(lightPos, 0)).xyz;
@@ -79,6 +75,10 @@ Shader "Unlit/DeferredReplacement"
                 float shadowed = saturate(lightDot + receivedShadow);
                 //shadowed *= 1.0;
                 o.albedo = _Color * (1 - shadowed) + _Color * shadowed * float4(0.8, 0.9, 0.95, 1.0) * 0.5;
+
+                //hack in a reflection factor based on world space
+                o.albedo.a = step(i.worldPos.y, 0.01);
+                
                 //o.albedo = _Color;
                 //o.albedo = shadowed;
                 o.normal = float4(i.normal, 1.0);

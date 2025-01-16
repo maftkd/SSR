@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AmbientOcclusion : MonoBehaviour
+public class AmbientOcclusion : MonoBehaviour, IPostProcessLayer
 {
     public Shader finalComposite;
     private Material _finalCompositeMat;
@@ -65,7 +65,7 @@ public class AmbientOcclusion : MonoBehaviour
         Shader.SetGlobalTexture("_SSAORotations", rotations);
     }
 
-    private void OnRenderImage(RenderTexture src, RenderTexture dest)
+    public void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
         if (_finalCompositeMat == null)
         {
@@ -98,18 +98,18 @@ public class AmbientOcclusion : MonoBehaviour
                 _ambientOcclusion.Release();
             }
             _ambientOcclusion = new RenderTexture(dest.width, dest.height, 0, RenderTextureFormat.R8);
+            Shader.SetGlobalTexture("_AmbientOcclusion", _ambientOcclusion);
         }
         
         _ambientOcclusionMat.SetFloat("_Radius", radius);
         _ambientOcclusionMat.SetFloat("_Bias", bias);
 
-        _finalCompositeMat.SetTexture("_AmbientOcclusion", _ambientOcclusion);
+        //_finalCompositeMat.SetTexture("_AmbientOcclusion", _ambientOcclusion);
         Graphics.Blit(null, _ambientOcclusion, _ambientOcclusionMat);
         
         _blurMat.SetFloat("_Radius", blurRadius);
         Graphics.Blit(_ambientOcclusion, _blur, _blurMat, 0);
         Graphics.Blit(_blur, _ambientOcclusion, _blurMat, 1);
         
-        Graphics.Blit(null, dest, _finalCompositeMat);
     }
 }
