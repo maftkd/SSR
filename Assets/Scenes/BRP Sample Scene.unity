@@ -345,12 +345,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215371747}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.2, y: 0, z: -10.6}
+  m_LocalPosition: {x: -43.5, y: -1.6, z: -22.1}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1897152252}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &238396679
 PrefabInstance:
@@ -430,7 +430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &243887764
 Transform:
   m_ObjectHideFlags: 0
@@ -597,7 +597,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 200
-  field of view: 26.991467
+  field of view: 40
   orthographic: 0
   orthographic size: 0.0023994944
   m_Depth: 0
@@ -623,7 +623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354915515}
   m_LocalRotation: {x: 0.15252297, y: 0.39303055, z: -0.06628563, w: 0.90436167}
-  m_LocalPosition: {x: -89.41971, y: 26.430916, z: -61.865932}
+  m_LocalPosition: {x: -83.2, y: 23.5, z: -56.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2405,7 +2405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1897152252
 Transform:
   m_ObjectHideFlags: 0
@@ -2418,10 +2418,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 215371751}
   - {fileID: 1398706137}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1962719503
 PrefabInstance:
@@ -2516,9 +2515,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 4054c86f25afa46be8090223bdd1322e, type: 3}
-  maxDistance: 16
-  thickness: 0.5
-  noise: 0
+  maxDistance: 42
+  thickness: 1
+  noise: 0.1
 --- !u!4 &1976851217
 Transform:
   m_ObjectHideFlags: 0

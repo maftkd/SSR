@@ -75,6 +75,7 @@ Shader "Unlit/DeferredReplacement"
                 float shadowed = saturate(lightDot + receivedShadow);
                 //shadowed *= 1.0;
                 o.albedo = _Color * (1 - shadowed) + _Color * shadowed * float4(0.8, 0.9, 0.95, 1.0) * 0.5;
+                //o.albedo.rgb = abs(frac(i.worldPos));
 
                 //hack in a reflection factor based on world space
                 o.albedo.a = step(i.worldPos.y, 0.01);
@@ -83,6 +84,7 @@ Shader "Unlit/DeferredReplacement"
                 //o.albedo = shadowed;
                 o.normal = float4(i.normal, 1.0);
                 o.position = float4(i.viewPos, 1.0);
+                //o.position = 1;
                 return o;
             }
             ENDCG
