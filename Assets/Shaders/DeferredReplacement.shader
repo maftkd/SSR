@@ -78,7 +78,7 @@ Shader "Unlit/DeferredReplacement"
                 //o.albedo.rgb = abs(frac(i.worldPos));
 
                 //hack in a reflection factor based on world space
-                o.albedo.a = step(i.worldPos.y, 0.01);
+                o.albedo.a = step(i.worldPos.y, 0.01) * step(-0.1, i.worldPos.y);
                 
                 //o.albedo = _Color;
                 //o.albedo = shadowed;

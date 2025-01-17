@@ -41,18 +41,21 @@ public class RenderPipelineManager : MonoBehaviour
         _prevWidth = Screen.width;
         _prevHeight = Screen.height;
         
-        _albedo = new RenderTexture(_prevWidth, _prevHeight, 32, RenderTextureFormat.ARGB32);
+        _albedo = new RenderTexture(_prevWidth * 2, _prevHeight * 2, 32, RenderTextureFormat.ARGB32);
         _albedo.wrapMode = TextureWrapMode.Clamp;
+        //_albedo.bindTextureMS = true;
         Shader.SetGlobalTexture("_GAlbedo", _albedo);
         
-        _normal = new RenderTexture(_prevWidth, _prevHeight, 0, RenderTextureFormat.ARGBHalf);
+        _normal = new RenderTexture(_prevWidth * 2, _prevHeight * 2, 0, RenderTextureFormat.ARGBHalf);
         _normal.wrapMode = TextureWrapMode.Clamp;
         _normal.filterMode = FilterMode.Point;
+        //_normal.bindTextureMS = true;
         Shader.SetGlobalTexture("_GNormal", _normal);
         
-        _position = new RenderTexture(_prevWidth, _prevHeight, 0, RenderTextureFormat.ARGBFloat);
+        _position = new RenderTexture(_prevWidth * 2, _prevHeight * 2, 0, RenderTextureFormat.ARGBFloat);
         _position.wrapMode = TextureWrapMode.Clamp;
         _position.filterMode = FilterMode.Point;
+        //_position.bindTextureMS = true;
         Shader.SetGlobalTexture("_GPosition", _position);
         
         if (_cam != null)

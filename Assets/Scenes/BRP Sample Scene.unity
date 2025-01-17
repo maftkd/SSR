@@ -609,7 +609,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -1855,6 +1855,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalComposite: {fileID: 4800000, guid: 0cf6e18f75e9a451ba48a12bdd5b0302, type: 3}
+  xScale: 2
+  yScale: 1
 --- !u!4 &1443309371
 Transform:
   m_ObjectHideFlags: 0
@@ -2515,7 +2517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 4054c86f25afa46be8090223bdd1322e, type: 3}
-  maxDistance: 16
+  maxDistance: 22
   thickness: 0.5
   noise: 0.1
 --- !u!4 &1976851217
