@@ -37,7 +37,7 @@ Shader "Hidden/FinalComposite"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv * float2(_XScale, 1);
+                o.uv = v.uv * float2(_XScale, _YScale);
                 return o;
             }
 
@@ -109,10 +109,10 @@ Shader "Hidden/FinalComposite"
             fixed4 frag (v2f i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv);
-                float3 reflection = tex2D(_ReflectionTexture, i.uv * float2(2,1)).rgb;
+                float3 reflection = tex2D(_ReflectionTexture, i.uv * float2(_XScale,_YScale)).rgb;
                 //return float4(reflection,1);
                 //return float4(reflection, 1);
-                col.rgb = lerp(col.rgb, tex2D(_MainTex, reflection.xy * float2(0.5,1)).rgb, reflection.z);
+                col.rgb = lerp(col.rgb, tex2D(_MainTex, reflection.xy * float2(1/_XScale,1/_YScale)).rgb, reflection.z);
                 return col;
             }
             ENDCG

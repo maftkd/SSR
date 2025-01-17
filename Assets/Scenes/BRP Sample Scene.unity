@@ -1856,7 +1856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finalComposite: {fileID: 4800000, guid: 0cf6e18f75e9a451ba48a12bdd5b0302, type: 3}
   xScale: 2
-  yScale: 1
+  yScale: 2
 --- !u!4 &1443309371
 Transform:
   m_ObjectHideFlags: 0
